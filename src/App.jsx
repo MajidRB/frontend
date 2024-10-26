@@ -22,7 +22,10 @@ import { useEffect, useState } from 'react'
 import CartID from './views/plugin/CartID'
 import UserData from './views/plugin/UserData'
 import apiInstance from './utils/axios'
-
+import Account from './views/Customer/Account'
+import PrivateRoute from './layout/PrivateRoute'
+import Orders from './views/Customer/Orders'
+import OrderDetail from './views/Customer/OrderDetail'
 
 
 //APP.jsx is place that all components meet each other 
@@ -63,6 +66,10 @@ function App() {
         <Route path='/checkout/:order_oid/' element = {< Checkout />} />
         <Route path='/payment-success/:order_oid/' element = {< PaymentSuccess />} />
         <Route path='/search/' element = {< Search />} />
+        {/* Account Components */}
+        <Route path='/customer/account/' element = {<PrivateRoute> < Account /> </PrivateRoute>} />
+        <Route path='/customer/orders/' element = {<PrivateRoute> < Orders /> </PrivateRoute>} />
+        <Route path='/customer/orders/:order_oid/' element = {<PrivateRoute> < OrderDetail /> </PrivateRoute>} />
       </Routes>
       <StoreFooter/>
     </MainWrapper>

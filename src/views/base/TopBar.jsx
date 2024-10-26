@@ -64,7 +64,7 @@ function TopBar() {
                                 ?
                                 <>
                                     <Link className='mx-2 btn btn-primary' to="/logout" type="button">Logout</Link>
-                                    <Link className='mx-2 btn btn-primary' to="/dashboard" type="button">{userData?.username}-Dashboard</Link>
+                                    <Link className='mx-2 btn btn-primary' to="/customer/account" type="button">{userData?.username}-Account</Link>
                                 </>
                                 :
                                 <>
