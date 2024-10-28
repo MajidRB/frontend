@@ -4,7 +4,9 @@ import UserData from '../plugin/UserData'
 import { Link } from 'react-router-dom';
 import Orders from './Orders';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import Wishlist from './Wishlist';
+import CustomerNotification from './CustomerNotification';
+import Settings from './Settings';
 
 
 function Account() {
@@ -27,12 +29,6 @@ function Account() {
 
 
 
-
-
-
-
-
-
     const [activeTab, setActiveTab] = useState('Account');
     const renderContent = () => {
         switch (activeTab) {
@@ -48,13 +44,13 @@ function Account() {
                 return <Orders />;
 
             case 'Wishlist':
-                return <div>Your wishlist items are shown here.</div>;
+                return <Wishlist />
 
             case 'Notification':
-                return <div>Your notifications are displayed here.</div>;
+                return < CustomerNotification />
 
             case 'Settings':
-                return <div>Your account settings are here.</div>;
+                return <div>< Settings /></div>;
 
             default:
                 return null;

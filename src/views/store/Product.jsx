@@ -122,15 +122,38 @@ function Product() {
         const response = await apiInstance.post(`cart-view/`, formdata)
 
         const url = userData ? `cart-list/${cart_id}/${userData?.user_id}/` : `cart-list/${cart_id}/`
-            apiInstance.get(url).then((res) => {
-                setCartCount(res.data.length)
-            })
+        apiInstance.get(url).then((res) => {
+            setCartCount(res.data.length)
+        })
 
         Toast.fire({
             icon: "success",
             title: response.data.message,
         })
     }
+
+
+    const addToWishlist = async (productId, userId) => {
+        try {
+            const formdata = new FormData()
+            formdata.append("product_id", productId)
+            formdata.append("user_id", userId)
+            const response = await apiInstance.post(`customer/wishlist/${userId}/`, formdata)
+            Swal.fire({
+                icon: 'success',
+                title: response.data.message,
+            })
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+
+
+
+
 
     return (
         <>
@@ -156,7 +179,7 @@ function Product() {
                                         <a className="btn btn-outline-dark btn-square" onClick={() => handleAddToCart(p.id, p.price, p.shipping_amount)}>
                                             <i className="fa fa-shopping-cart" />
                                         </a>
-                                        <a className="btn btn-outline-dark btn-square" href="">
+                                        <a className="btn btn-outline-dark btn-square" onClick={() => addToWishlist(p.id, userData?.user_id)}>
                                             <i className="far fa-heart"></i>
                                         </a>
                                         <a className="btn btn-outline-dark btn-square" href="">
