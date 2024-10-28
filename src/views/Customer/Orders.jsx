@@ -54,6 +54,7 @@ function Orders() {
                         <th>Total</th>
                         <th>Date</th>
                         <th>Actions</th>
+                        <th>Invoices</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +66,7 @@ function Orders() {
                             <td>$ {order.total}</td>
                             <td>{moment(order.date).format("MMM D YYYY")}</td>
                             <td> <Link to={`/customer/orders/${order.oid}/`} >  View <i className='fas fa-eye '> </i> </Link> </td>
+                            <td> <Link to={`/customer/invoice/${order.oid}/`} >  View <i className='fas fa-receipt '> </i> </Link> </td>
                         </tr>
                     ))}
                 </tbody>

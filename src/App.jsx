@@ -29,6 +29,8 @@ import OrderDetail from './views/Customer/OrderDetail'
 import Wishlist from './views/Customer/Wishlist'
 import CustomerNotification from './views/Customer/CustomerNotification'
 import CustomerSettings from './views/Customer/Settings'
+import Invoice from './views/Customer/Invoice'
+import VendorDashboard from './views/vendor/Dashboard'
 
 
 //APP.jsx is place that all components meet each other 
@@ -76,6 +78,9 @@ function App() {
             <Route path='/customer/wishlist/' element={<PrivateRoute> < Wishlist /> </PrivateRoute>} />
             <Route path='/customer/notifications/' element={<PrivateRoute> < CustomerNotification /> </PrivateRoute>} />
             <Route path='/customer/settings/' element={<PrivateRoute> < CustomerSettings /> </PrivateRoute>} />
+            <Route path='/customer/invoice/:order_oid/' element={<PrivateRoute> < Invoice /> </PrivateRoute>} />
+            {/* Vendor Components */}
+            <Route path='/vendor/dashboard/' element={<PrivateRoute> < VendorDashboard /> </PrivateRoute>} />
 
 
 
