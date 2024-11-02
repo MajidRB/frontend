@@ -16,24 +16,6 @@ function StoreHeader() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 
     const [cart, setCart] = useState([])
     const cart_id = CartID()

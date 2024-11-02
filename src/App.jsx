@@ -1,7 +1,15 @@
 
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter, useLocation } from 'react-router-dom'
+import { CartContext } from './views/plugin/Context'
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 
 import MainWrapper from './layout/MainWrapper'
+import PrivateRoute from './layout/PrivateRoute'
+
+import apiInstance from './utils/axios'
+import CartID from './views/plugin/CartID'
+import UserData from './views/plugin/UserData'
 import Login from './views/auth/Login'
 import Register from './views/auth/Register'
 import Dashboard from './views/auth/Dashboard'
@@ -17,13 +25,7 @@ import Cart from './views/store/Cart'
 import Checkout from './views/store/Checkout'
 import PaymentSuccess from './views/store/PaymentSuccess'
 import Search from './views/store/Search'
-import { CartContext } from './views/plugin/Context'
-import { useEffect, useState } from 'react'
-import CartID from './views/plugin/CartID'
-import UserData from './views/plugin/UserData'
-import apiInstance from './utils/axios'
 import Account from './views/Customer/Account'
-import PrivateRoute from './layout/PrivateRoute'
 import Orders from './views/Customer/Orders'
 import OrderDetail from './views/Customer/OrderDetail'
 import Wishlist from './views/Customer/Wishlist'
@@ -31,8 +33,13 @@ import CustomerNotification from './views/Customer/CustomerNotification'
 import CustomerSettings from './views/Customer/Settings'
 import Invoice from './views/Customer/Invoice'
 import VendorDashboard from './views/vendor/Dashboard'
-
-
+import VendorProduct from './views/vendor/Products'
+import VendorOrders from './views/vendor/Orders'
+import VendorOrderDetail from './views/vendor/OrderDetail'
+import VendorEarning from './views/vendor/Earning'
+import VendorReviews from './views/vendor/Reviews'
+import VendorReviewDetail from './views/vendor/ReviewDetail'
+import VendorCoupon from './views/vendor/Coupon'
 //APP.jsx is place that all components meet each other 
 
 function App() {
@@ -50,13 +57,45 @@ function App() {
     })
   })
 
+
+
+//GPT
+
+  const Layout = ({ children }) => {
+    const location = useLocation();
+    const isVendorRoute = location.pathname.startsWith('/vendor'); 
+
+    return (
+      <>
+        
+        {!isVendorRoute && (
+          <>
+            <StoreHeader />
+          </>
+        )}
+        <MainWrapper>{children}</MainWrapper> 
+        <StoreFooter /> 
+      </>
+    );
+  };
+
+  Layout.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
+//GPT
+
+
+
+  
   return (
+
+
     <CartContext.Provider value={[cartCount, setCartCount]} >
 
       <BrowserRouter>
         <TopBar />
-        <StoreHeader />
-        <MainWrapper>
+        <Layout> {/* GPT */}
           <Routes>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
@@ -81,14 +120,18 @@ function App() {
             <Route path='/customer/invoice/:order_oid/' element={<PrivateRoute> < Invoice /> </PrivateRoute>} />
             {/* Vendor Components */}
             <Route path='/vendor/dashboard/' element={<PrivateRoute> < VendorDashboard /> </PrivateRoute>} />
-
-
+            <Route path='/vendor/products/' element={<PrivateRoute> < VendorProduct /> </PrivateRoute>} />
+            <Route path='/vendor/orders/' element={<PrivateRoute> < VendorOrders /> </PrivateRoute>} />
+            <Route path='/vendor/orders/:vendor_id/:order_oid/' element={<PrivateRoute> < VendorOrderDetail /> </PrivateRoute>} />
+            <Route path='/vendor/earning/' element={<PrivateRoute> < VendorEarning /> </PrivateRoute>} />
+            <Route path='/vendor/reviews/' element={<PrivateRoute> < VendorReviews /> </PrivateRoute>} />
+            <Route path='/vendor/reviews/:review_id/' element={<PrivateRoute> < VendorReviewDetail /> </PrivateRoute>} />
+            <Route path='/vendor/coupon/' element={<PrivateRoute> < VendorCoupon /> </PrivateRoute>} />
 
           </Routes>
-          <StoreFooter />
-        </MainWrapper>
-      </BrowserRouter>
 
+        </Layout>
+      </BrowserRouter>
     </CartContext.Provider >
   )
 }

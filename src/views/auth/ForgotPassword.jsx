@@ -6,11 +6,16 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState("")
     const navigate = useNavigate()
+
+
     const handleEmailSubmit = async () => {
         try {
             await apiInstance.get(`user/password-reset/${email}/`).then((res) => {   // use backtick!!! `` '' ""
+                const { link, message } = (res.data)//GPT
+                alert(message)//GPT
                 alert("An email has been sent to your eamil"); //make an email system TODO
-                //navigate("/create-new-password")
+                /* navigate("/create-new-password/") */
+                window.location.href = link;
             })
         } catch (error) {
             console.log(error)

@@ -26,7 +26,7 @@ function CreatePassword() {
 
             try {  // backend/api/views/py : create api view takes a post request
                 await apiInstance.post(`user/password-change/`, formdata).then((res) => {
-                    console.log(res.data);
+                    console.log("responde from back:",res.data);
                     alert("password changed successfully")
                     navigate("/login")
 
@@ -60,7 +60,7 @@ function CreatePassword() {
                             type="password"
                             name='password'
                             id='confirm-password'
-                            value={password}
+                            value={confirmPassword}
                             placeholder='Confirm New password'
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />

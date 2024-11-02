@@ -2,134 +2,38 @@ import React from 'react'
 import Sidebar from './Sidebar';
 import apiInstance from '../../utils/axios'
 import { useState, useEffect } from 'react';
-import userData from '../plugin/UserData'
-import { Line, Bar } from 'react-chartjs-2'
-import { Chart } from 'chart.js/auto';
 import UserData from '../plugin/UserData';
 import { Link } from 'react-router-dom';
 
-function Dashboard() {
 
-    const [stats, setStats] = useState({})
-    const [orderChartData, setOrderChartData] = useState([])
-    const [productsChartData, setProductsChartData] = useState([])
+
+function Products() {
+
 
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        apiInstance.get(`vendor/stats/${userData()?.vendor_id}/`).then((res) => {
-            setStats(res.data[0])
-
-        })
-
         apiInstance.get(`vendor/products/${UserData()?.vendor_id}/`).then((res) => {
             setProducts(res.data)
-
         })
     }, [])
-
-
-
-    const fetchChartData = async () => {
-        const order_chart_response = await apiInstance.get(`vendor-orders-chart/${userData()?.vendor_id}/`)
-        setOrderChartData(order_chart_response.data)
-
-        const order_products_response = await apiInstance.get(`vendor-product-chart/${userData()?.vendor_id}/`)
-        setProductsChartData(order_products_response.data)
-
-    }
-
-    useEffect(() => {
-        fetchChartData()
-    }, [])
-
-    const order_month = orderChartData?.map(item => item.month)
-    const order_counts = orderChartData?.map(item => item.orders)
-
-    const product_month = productsChartData?.map(item => item.month)
-    const product_counts = productsChartData?.map(item => item.products)
-
-
-    const order_data = {
-        labels: order_month,
-        datasets: [
-            {
-                label: "Total Orders",
-                data: order_counts,
-                fill: true,
-                backgroundColor: 'green',
-                borderColor: 'green',
-            }
-        ]
-    }
-
-    const product_data = {
-        labels: product_month,
-        datasets: [
-            {
-                label: "Total Products",
-                data: product_counts,
-                fill: true,
-                backgroundColor: 'blue',
-                borderColor: 'blue',
-            }
-        ]
-    }
-
-
-
 
 
 
 
     return (
         <>
-        
             <div style={styles.pageContainer}>
                 <div style={styles.card}>
                     <div style={styles.container}>
-
                         {/*Sidebar */}
                         <Sidebar />
-
                         {/*Main Content */}
                         <div style={styles.mainContent}>
-                            {/*Stats Cards */}
-                            <div style={styles.statsContainer}>
-                                <div style={styles.statsCardGreen}>
-                                    <div style={styles.statsLabel}>PRODUCTS</div>
-                                    <div style={styles.statsNumber}>{stats?.products}</div>
-                                </div>
-                                <div style={styles.statsCardRed}>
-                                    <div style={styles.statsLabel}>ORDERS</div>
-                                    <div style={styles.statsNumber}>{stats?.orders}</div>
-                                </div>
-                                <div style={styles.statsCardBlue}>
-                                    <div style={styles.statsLabel}>CUSTOMERS</div>
-                                    <div style={styles.statsNumber}>###</div>
-                                </div>
-                                <div style={styles.statsCardYellow}>
-                                    <div style={styles.statsLabel}>REVENUE</div>
-                                    <div style={styles.statsNumber}>${stats?.revenue}</div>
-                                </div>
-                            </div>
-
-                            {/*Chart Section */}
-                            <div style={styles.chartSection}>
-                                <h2 style={styles.chartTitle}>Chart Analytics</h2>
-                                <div style={styles.chartArea}>
-                                    <Line data={order_data} style={{ height: 300 }} />
-                                    <Line data={product_data} style={{ height: 300 }} />
-                                </div>
-                            </div>
-
 
                             {/*Products Table */}
                             <div style={styles.tableSection}>
-                                <div style={styles.tableNav}>
-                                    <span style={styles.tableNavItem}>Products</span>
-                                    <span style={styles.tableNavItem}>Orders</span>
-                                </div>
+                                <h1 className='pb-2'> Products <i className='fas fa-shop'></i></h1>
                                 <table style={styles.table}>
                                     <thead>
                                         <tr style={styles.tableHeader}>
@@ -145,7 +49,7 @@ function Dashboard() {
                                     <tbody>
                                         {products?.map((p, index) => (
                                             <tr style={styles.tableRow} key={index}>
-                                                <td style={styles.tableCell}> <img src={p.image} style={{ borderRadius: '5px', width: '30px', height: '30px' }} /> </td>
+                                                <td style={styles.tableCell}> <img src={p.image} style={styles.productImages} /> </td>
                                                 <td style={styles.tableCell}>{p.title}</td>
                                                 <td style={styles.tableCell}>${p.price}</td>
                                                 <td style={styles.tableCell}>{p.stock_qty}</td>
@@ -153,19 +57,19 @@ function Dashboard() {
                                                 <td style={styles.tableCell}>{p.status.toUpperCase()}</td>
                                                 <td style={styles.tableCell}>
                                                     <Link>
-                                                    <button style={styles.buttonBlue}>
-                                                        View
-                                                    </button>
+                                                        <button style={styles.buttonBlue}>
+                                                            View
+                                                        </button>
                                                     </Link>
                                                     <Link>
-                                                    <button style={styles.buttonGreen}>
-                                                        Edit
-                                                    </button>
+                                                        <button style={styles.buttonGreen}>
+                                                            Edit
+                                                        </button>
                                                     </Link>
                                                     <Link>
-                                                    <button style={styles.buttonRed}>
-                                                        Delete
-                                                    </button>
+                                                        <button style={styles.buttonRed}>
+                                                            Delete
+                                                        </button>
                                                     </Link>
                                                 </td>
                                             </tr>
@@ -177,10 +81,10 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
+
 
 
 const styles = {
@@ -305,6 +209,11 @@ const styles = {
             backgroundColor: '#f8f9fa'
         }
     },
+    productImages: {
+        width: "8vh",
+        height: 'auto',
+        borderRadius: '10px',
+    },
     tableCell: {
         padding: '12px'
     },
@@ -348,5 +257,4 @@ const styles = {
     }
 };
 
-
-export default Dashboard
+export default Products
