@@ -4,6 +4,11 @@ import { CartContext } from './views/plugin/Context'
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 import MainWrapper from './layout/MainWrapper'
 import PrivateRoute from './layout/PrivateRoute'
 
@@ -40,6 +45,12 @@ import VendorEarning from './views/vendor/Earning'
 import VendorReviews from './views/vendor/Reviews'
 import VendorReviewDetail from './views/vendor/ReviewDetail'
 import VendorCoupon from './views/vendor/Coupon'
+import VendorCouponEdit from './views/vendor/EditCoupon'
+import VendorNotification from './views/vendor/Notification'
+import VendorSettings from './views/vendor/VendorSettings';
+import VendorShop from './views/vendor/Shop';
+import VendorAddProduct from './views/vendor/AddProduct';
+import VendorUpdateProduct from './views/vendor/UpdateProduct';
 //APP.jsx is place that all components meet each other 
 
 function App() {
@@ -127,6 +138,12 @@ function App() {
             <Route path='/vendor/reviews/' element={<PrivateRoute> < VendorReviews /> </PrivateRoute>} />
             <Route path='/vendor/reviews/:review_id/' element={<PrivateRoute> < VendorReviewDetail /> </PrivateRoute>} />
             <Route path='/vendor/coupon/' element={<PrivateRoute> < VendorCoupon /> </PrivateRoute>} />
+            <Route path='/vendor/coupon/:coupon_id/' element={<PrivateRoute> < VendorCouponEdit /> </PrivateRoute>} />
+            <Route path='/vendor/notifications/' element={<PrivateRoute> < VendorNotification /> </PrivateRoute>} />
+            <Route path='/vendor/settings/' element={<PrivateRoute> < VendorSettings /> </PrivateRoute>} />
+            <Route path='/vendor/:slug/' element={<PrivateRoute> < VendorShop /> </PrivateRoute>} />
+            <Route path='/vendor/add-product/' element={<PrivateRoute> < VendorAddProduct /> </PrivateRoute>} />
+            <Route path='/vendor/product/update/:pid/' element={<PrivateRoute> < VendorUpdateProduct /> </PrivateRoute>} />
 
           </Routes>
 

@@ -121,10 +121,8 @@ function Coupon() {
                                                 : 'Inactive'
                                             }
                                             <td>
-                                                <Link className='btn btn-secondary mb-1 ms-2'>
-                                                    <i className='fas fa-eye' />
-                                                </Link>
-                                                <Link className='btn btn-primary mb-1 ms-2'>
+                                                
+                                                <Link to={`/vendor/coupon/${c.id}`} className='btn btn-primary mb-1 ms-2'>
                                                     <i className='fas fa-edit' />
                                                 </Link>
                                                 <Link onClick={() => handleDeleteCoupon(c.id)} className='btn btn-danger mb-1 ms-2'>

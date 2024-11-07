@@ -4,7 +4,16 @@ import apiInstance from '../../utils/axios'
 import { useState, useEffect } from 'react';
 import UserData from '../plugin/UserData';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 4500,
+    timerProgressBar: true,
+    background: "#fafad2",
+})
 
 
 function Products() {
@@ -17,6 +26,20 @@ function Products() {
             setProducts(res.data)
         })
     }, [])
+
+
+    const handleRemoveProduct = async (productPid) => {
+        await apiInstance.delete(`vendor/product-delete/${UserData()?.vendor_id}/${productPid}/`)
+        await apiInstance.get(`vendor/products/${UserData()?.vendor_id}/`).then((res) => {
+            setProducts(res.data)
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Product Deleted!!'
+        })
+
+    }
+
 
 
 
@@ -61,16 +84,14 @@ function Products() {
                                                             View
                                                         </button>
                                                     </Link>
-                                                    <Link>
+                                                    <Link to={`/vendor/product/update/${p.pid}/`}>
                                                         <button style={styles.buttonGreen}>
                                                             Edit
                                                         </button>
                                                     </Link>
-                                                    <Link>
-                                                        <button style={styles.buttonRed}>
-                                                            Delete
-                                                        </button>
-                                                    </Link>
+                                                    <button type='button' onClick={() => handleRemoveProduct(p.pid)} style={styles.buttonRed}>
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}

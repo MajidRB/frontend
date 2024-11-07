@@ -38,10 +38,10 @@ function Invoice() {
             <div className="row mb-4">
                 {/* اطلاعات فروشنده */}
                 <div className="col-md-6">
-                    <h3>Desphixs</h3>
-                    <p><strong>+1 3649-6589</strong></p>
-                    <p>company@gmail.com</p>
-                    <p>123 Main Street</p>
+                    <h3>HyperSofal</h3>
+                    <p><strong>+98 918 916 3140</strong></p>
+                    <p>HyperSofal@gmail.com</p>
+                    <p>Lalejin</p>
                 </div>
 
                 {/* اطلاعات مشتری */}

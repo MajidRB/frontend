@@ -28,7 +28,7 @@ function Product() {
     const [colorValue, setColorValue] = useState("No Color")
     const [sizeValue, setSizeValue] = useState("No Size")
     const [qtyValue, setQtyValue] = useState(1)
-    const [selectedProduct, setSelectedProduct] = useState({})
+    const [selectedProduct, setSelectedProduct] = useState(null) // OR {}
     const [selectedColor, setSelectedColor] = useState({})
     const [selectedSize, setSelectedSize] = useState({})
 

@@ -78,6 +78,16 @@ export const register = async (full_name, email, phone, password, password2) => 
 export const logout = () => {
     Cookies.remove("access_token")
     Cookies.remove("refresh_token")
+
+    // پاکسازی کوکی‌ها و حافظه محلی و session storage
+    document.cookie.split(";").forEach(function(c) { 
+        document.cookie = c.trim() + "=;expires=Thu, 01 Jan 1980 00:00:00 UTC;path=/";
+    });
+    localStorage.clear();
+    sessionStorage.clear();
+
+
+
     useAuthStore.getState().setUser(null)
 
     Toast.fire({
