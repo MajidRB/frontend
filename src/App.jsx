@@ -68,24 +68,20 @@ function App() {
     })
   })
 
-
-
-//GPT
-
+  //GPT
   const Layout = ({ children }) => {
     const location = useLocation();
-    const isVendorRoute = location.pathname.startsWith('/vendor'); 
+    const isVendorRoute = location.pathname.startsWith('/vendor');
 
     return (
       <>
-        
         {!isVendorRoute && (
           <>
             <StoreHeader />
           </>
         )}
-        <MainWrapper>{children}</MainWrapper> 
-        <StoreFooter /> 
+        <MainWrapper>{children}</MainWrapper>
+        <StoreFooter />
       </>
     );
   };
@@ -93,14 +89,10 @@ function App() {
   Layout.propTypes = {
     children: PropTypes.node.isRequired,
   };
-
-//GPT
-
+  //GPT
 
 
-  
   return (
-
 
     <CartContext.Provider value={[cartCount, setCartCount]} >
 
